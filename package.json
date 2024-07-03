@@ -2,6 +2,14 @@
   "name": "library-api",
   "version": "1.0.0",
   "main": "index.js",
+  "scripts": {
+    "dev": "ts-node-dev src/server.ts",
+    "build": "tsc",
+    "seed": "ts-node-dev prisma/addAdmin.ts",
+    "preprism": "npx prisma generate",
+    "prism": "npx prisma migrate dev --name init",
+    "start": "node dist/server.js"
+  },
   "repository": "git@github.com:Azamat-Giztdinov/library-api.git",
   "author": "azamat <azamat.giztdinov@mail.ru>",
   "license": "MIT",
@@ -13,7 +21,10 @@
     "@types/node": "^20.14.9",
     "bcryptjs": "^2.4.3",
     "express": "^4.19.2",
+    "express-validator": "^7.1.0",
     "jsonwebtoken": "^9.0.2",
+    "lodash": "^4.17.21",
+    "nodemailer": "^6.9.14",
     "pg": "^8.12.0",
     "prisma": "^5.16.1",
     "ts-node": "^10.9.2",
@@ -21,6 +32,8 @@
     "typescript": "^5.5.2"
   },
   "devDependencies": {
+    "@types/lodash": "^4.17.6",
+    "@types/nodemailer": "^6.4.15",
     "nodemon": "^3.1.4"
   }
 }
