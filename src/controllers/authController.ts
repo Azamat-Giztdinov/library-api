@@ -123,7 +123,6 @@ export const updateUserConfirm = async (req: Request, res: Response) => {
 
 
 export const me = async (req: Request, res: Response) => {
-  console.log(req.user);
   const user = await prisma.user.findUnique({
     where: { id: req.user!.userId },
     select: { id: true, username: true, email: true, role: true }

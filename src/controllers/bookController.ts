@@ -29,10 +29,7 @@ export const getBooks = async (req: Request, res: Response) => {
 
 export const getBookById = async (req: Request, res: Response) => {
   const { id } = req.params;
-
-  const book = await prisma.book.findUnique({
-    where: { id: Number(id) }
-  });
+  const book = await checkbook(id);
 
   if (!book) return res.sendStatus(404);
 
@@ -41,7 +38,9 @@ export const getBookById = async (req: Request, res: Response) => {
 
 export const updateBook = async (req: Request, res: Response) => {
   const { id } = req.params;
+
   const { title, author, publicationDate, genres } = req.body;
+  if(!await checkbook(id)) return res.sendStatus(404);
 
   const book = await prisma.book.update({
     where: { id: Number(id) },
@@ -59,9 +58,18 @@ export const updateBook = async (req: Request, res: Response) => {
 export const deleteBook = async (req: Request, res: Response) => {
   const { id } = req.params;
 
+  if (!await checkbook(id)) return res.sendStatus(404);
+
   await prisma.book.delete({
     where: { id: Number(id) }
   });
 
   res.sendStatus(204);
 };
+
+
+const checkbook = async (id: String) => {
+  return await prisma.book.findUnique({
+    where: {id: Number(id)}
+  })
+} 

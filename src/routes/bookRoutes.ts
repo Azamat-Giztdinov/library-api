@@ -17,7 +17,7 @@ router.route('/')
     .get(getBooks);
 
 router.route('/:id').get(getBookById)
-    .put(authenticateToken, authorizeRoles(roles.ADMIN), updateBook)
+    .put(authenticateToken, authorizeRoles(roles.ADMIN), validateBookData, handleValidationErrors, updateBook)
     .delete(authenticateToken, authorizeRoles(roles.ADMIN), deleteBook);
 
 export default router;
